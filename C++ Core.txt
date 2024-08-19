@@ -1,0 +1,3759 @@
+Introduction:
+C++ is a fast language, commonly used in advanced graphic applications. Considering C++ as a middle language, its commonly used with embedded systems and helps build video games as well. C++ builds the benefit to work closely with system hardware while resembling somewhat to human language.
+Requisites:
+-> A text editor 
+-> A compilerll
+Code HelloWorld.cpp:
+#include <iostream>
+int main() {
+    std::cout << "I like pizza!";  // std::cout -> standard::character output
+    std::cout << "Hello world!";
+    return 0;
+}
+Switching lines with `\n` and `std::endl` in C++:
+### `\n` (Newline Character)
+- **Usage**: Inserts a newline character.
+- **Performance**: Faster as it doesn't flush the output buffer.
+- **Memory**: Occupies 1 byte as it is a character.
+
+#### Example:
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!\n"; // Inserts a newline character
+    std::cout << "This is a new line.\n";
+    return 0;
+}
+```
+
+### `std::endl` (End Line)
+- **Usage**: Inserts a newline and flushes the output buffer.
+- **Performance**: Slower due to the flushing of the buffer.
+- **Memory**: Does not occupy memory as it is a manipulator.
+
+#### Example:
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!" << std::endl; // Inserts a newline and flushes the buffer
+    std::cout << "This is a new line." << std::endl;
+    return 0;
+}
+```
+
+### Key Differences
+1. **Flushing the Buffer**:
+   - `\n` does not flush the output buffer.
+   - `std::endl` flushes the output buffer, ensuring all output is immediately written to the console.
+
+2. **Performance**:
+   - `\n` is generally faster as it avoids the overhead of flushing the buffer.
+   - `std::endl` can be useful when you need to ensure the output is displayed immediately, such as in logging or interactive applications.
+
+3. **Usage Context**:
+   - Use `\n` for performance-critical applications where immediate flushing is not required.
+   - Use `std::endl` when you need to ensure the output is immediately visible.
+
+### Example Comparison
+```cpp
+#include <iostream>
+
+int main() {
+    // Using \n
+    std::cout << "Using \\n:" << std::endl;
+    std::cout << "Line 1\n";
+    std::cout << "Line 2\n";
+
+    // Using std::endl
+    std::cout << "Using std::endl:" << std::endl;
+    std::cout << "Line 1" << std::endl;
+    std::cout << "Line 2" << std::endl;
+
+    return 0;
+}
+```
+
+In summary, while both `\n` and `std::endl` are used to insert new lines, `\n` is faster and more efficient for general use, whereas `std::endl` is useful when you need to flush the output buffer immediately.
+Comments in C++:
+In C++, comments are used to explain code and make it more readable. They are ignored by the compiler, so they don't affect the execution of the program. There are two main types of comments in C++:
+
+### Single-line Comments
+- **Syntax**: Start with `//` and extend to the end of the line.
+- **Usage**: Ideal for brief explanations or notes.
+
+#### Example:
+```cpp
+#include <iostream>
+
+int main() {
+    // This is a single-line comment
+    std::cout << "Hello, World!"; // This comment is at the end of a line
+    return 0;
+}
+```
+
+### Multi-line Comments
+- **Syntax**: Start with `/*` and end with `*/`.
+- **Usage**: Suitable for longer explanations that span multiple lines.
+
+#### Example:
+```cpp
+#include <iostream>
+
+int main() {
+    /* This is a multi-line comment
+       It can span multiple lines */
+    std::cout << "Hello, World!";
+    return 0;
+}
+```
+Code for Datatypes in C++:
+#include <iostream>
+
+int main() {
+    int x; // declaration
+    x = 5; // initialization
+    std::cout << x << std::endl;
+
+    int y = 6; // declaration + initialization
+    int sum = x + y;
+    std::cout << sum << std::endl;
+
+    int days = 7.6; // truncates value
+    std::cout << days << std::endl;
+
+    // double datatype
+    double price = 10.96;
+    double gpa = 2.5;
+    std::cout << price << std::endl;
+    std::cout << gpa << " is the final GPA" << std::endl;
+
+    //character datatype
+    char grade = 'A';
+    char initial = 'X';
+    char currency = '$';
+    // char error = 'XD'; -> Error : overflow in conversion from 'int' to 'char' changes value from '22596' to '68' [-Woverflow]gcc
+    std::cout << grade << std::endl;
+    std::cout << initial << std::endl;
+    std::cout << currency << std::endl;
+
+    //boolean (true or false)
+    bool student = false;
+    bool light_is_on = 1;
+
+    std::cout << student << std::endl; 
+    std::cout << light_is_on << std::endl;
+    // boolean values are treated as numeric values of 0 and 1 respectively
+
+    return 0;
+}
+Const keyword:
+In C++, the `const` keyword is used to define constants, which are variables whose values cannot be changed once they are initialized. This keyword can be applied to variables, pointers, member functions, objects, and references. Here are some key points and examples to illustrate its usage:
+
+### Constant Variables
+- **Syntax**: `const data_type variable_name = value;`
+- **Usage**: The value of a constant variable cannot be modified after its initialization.
+
+#### Example:
+```cpp
+#include <iostream>
+
+int main() {
+    const int maxValue = 100;
+    std::cout << "Max Value: " << maxValue << std::endl;
+    // maxValue = 200; // This will cause a compile-time error
+    return 0;
+}
+```
+
+### Constant Pointers
+There are three ways to use `const` with pointers:
+
+1. **Pointer to a Constant Value**:
+   - **Syntax**: `const data_type* pointer_name;`
+   - **Usage**: The value pointed to by the pointer cannot be changed, but the pointer itself can point to different addresses.
+
+   ```cpp
+   int x = 10;
+   const int* ptr = &x;
+   // *ptr = 20; // Error: cannot modify the value
+   x = 20; // Allowed
+   ```
+
+2. **Constant Pointer to a Value**:
+   - **Syntax**: `data_type* const pointer_name;`
+   - **Usage**: The pointer cannot point to a different address, but the value at the address can be changed.
+
+   ```cpp
+   int y = 30;
+   int* const ptr2 = &y;
+   *ptr2 = 40; // Allowed
+   // ptr2 = &x; // Error: cannot change the address
+   ```
+
+3. **Constant Pointer to a Constant Value**:
+   - **Syntax**: `const data_type* const pointer_name;`
+   - **Usage**: Neither the pointer nor the value it points to can be changed.
+
+   ```cpp
+   int z = 50;
+   const int* const ptr3 = &z;
+   // *ptr3 = 60; // Error: cannot modify the value
+   // ptr3 = &y; // Error: cannot change the address
+   ```
+
+### Constant Member Functions
+- **Usage**: Member functions that do not modify the state of the object can be declared as `const`.
+
+#### Example:
+```cpp
+class MyClass {
+public:
+    int getValue() const {
+        return value;
+    }
+private:
+    int value = 10;
+};
+```
+
+### Constant References
+- **Usage**: References to constants ensure that the referenced value cannot be modified through the reference.
+
+#### Example:
+```cpp
+void printValue(const int& ref) {
+    std::cout << "Value: " << ref << std::endl;
+    // ref = 20; // Error: cannot modify the value
+}
+
+int main() {
+    int a = 10;
+    printValue(a);
+    return 0;
+}
+```
+
+Using the `const` keyword helps in writing safer and more predictable code by preventing unintended modifications.
+Const sample code:
+ #include <iostream>
+
+ int main() {
+
+    const double pi = 3.14159;
+    // pi = 3.14; // Error: assignment of read-only variable 'pi'
+    int radius = 5;
+
+    double area = pi * radius * radius;
+    
+    std::cout << "Area of the circle is: " << area << std::endl;
+    return 0;
+
+ }
+Namespaces:
+In C++, a **namespace** is a declarative region that provides a scope to the identifiers (names of functions, variables, classes, etc.) inside it. Namespaces are used to organize code into logical groups and to prevent name collisions that can occur especially when your code base includes multiple libraries.
+
+### Defining a Namespace
+A namespace is defined using the `namespace` keyword followed by the namespace name and a block of code.
+
+#### Example:
+```cpp
+#include <iostream>
+
+namespace MyNamespace {
+    void myFunction() {
+        std::cout << "Hello from MyNamespace!" << std::endl;
+    }
+}
+
+int main() {
+    MyNamespace::myFunction(); // Accessing the function using the namespace
+    return 0;
+}
+```
+
+### Using the `using` Directive
+You can use the `using` directive to avoid having to prefix every identifier with the namespace name.
+
+#### Example:
+```cpp
+#include <iostream>
+
+namespace MyNamespace {
+    void myFunction() {
+        std::cout << "Hello from MyNamespace!" << std::endl;
+    }
+}
+
+int main() {
+    using namespace MyNamespace;
+    myFunction(); // No need to prefix with MyNamespace::
+    return 0;
+}
+```
+
+### Nested Namespaces
+Namespaces can be nested within other namespaces.
+
+#### Example:
+```cpp
+#include <iostream>
+
+namespace OuterNamespace {
+    namespace InnerNamespace {
+        void innerFunction() {
+            std::cout << "Hello from InnerNamespace!" << std::endl;
+        }
+    }
+}
+
+int main() {
+    OuterNamespace::InnerNamespace::innerFunction(); // Accessing nested namespace function
+    return 0;
+}
+```
+
+### Anonymous Namespaces
+Anonymous namespaces are used to declare identifiers that are only accessible within the file they are declared in. This is useful for internal linkage.
+
+#### Example:
+```cpp
+#include <iostream>
+
+namespace {
+    void internalFunction() {
+        std::cout << "Hello from an anonymous namespace!" << std::endl;
+    }
+}
+
+int main() {
+    internalFunction(); // Directly accessible within the same file
+    return 0;
+}
+```
+
+### Key Points
+1. **Avoiding Name Collisions**: Namespaces help in avoiding name collisions by grouping logically related identifiers.
+2. **Organizing Code**: They provide a way to organize code into logical groups.
+3. **Scope Management**: Namespaces manage the scope of identifiers, making code more readable and maintainable.
+Namespaces are a powerful feature in C++ that help in writing modular and maintainable code.
+Namespace Code1:
+#include <iostream>
+
+namespace first {
+    int x = 1;
+}
+namespace second {
+    int x = 2;
+}
+
+int main() {
+    using namespace first;
+    std::cout << x << std::endl;
+    std::cout << second::x << std::endl;
+    return 0;
+}
+Namespace Code2:
+#include <iostream>
+
+int main() {
+    
+    // using namespace std; // initialize the std namespace with all its members
+    using std::string; // initialize only the string namespace with all its members
+    using std::cout; // initialize only the cout namespace with all its members
+
+    cout << "Hello, World!" << std::endl;
+
+    string name = "John";
+    cout << "Hello, " << name << "!" << std::endl;
+
+    return 0;
+}
+Typedef in C++:
+The `typedef` keyword in C++ is used to create an alias for existing data types, making code more readable and easier to manage. Here's a simple example to illustrate its use:
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    // Creating an alias for std::vector<int>
+    typedef std::vector<int> vInt;
+
+    // Using the alias to declare a vector
+    vInt numbers = {1, 2, 3, 4, 5};
+
+    for (int num : numbers) {
+        std::cout << num << " ";
+    }
+
+    return 0;
+}
+```
+
+In this example, `typedef` creates an alias `vInt` for `std::vector<int>`, making the code cleaner and easier to read70.
+Code Sample:
+#include <iostream>
+#include <vector>
+
+typedef std::vector<int> vi; // Alternative: using vi = std::vector<int>;
+typedef std::vector<std::pair<std::string, vi>> pairlist_t; // Alternative: using pairlist_t = std::vector<std::pair<std::string, vi>>;
+typedef std::string text_t; // Alternative: using text_t = std::string;
+typedef int number_t; // Alternative: using number_t = std::int;
+
+int main() {
+    text_t firstName = "John";
+    number_t age = 21;
+
+    pairlist_t people = {
+        {"John", {21, 1, 1999}},
+        {"Jane", {22, 2, 1998}},
+        {"Joe", {23, 3, 1997}}
+    };
+
+    std::cout << "Hello, " << firstName << "!" << std::endl;
+    std::cout << "You are " << age << " years old." << std::endl;
+
+    return 0;
+}
+Operators in C++:
+#include <iostream>
+
+int main() {
+
+    int a = 10;
+    int b = 20;
+
+    // Arithmetic operators
+    std::cout << "a + b = " << a + b << std::endl;
+    std::cout << "a - b = " << a - b << std::endl;
+    std::cout << "a * b = " << a * b << std::endl;
+    std::cout << "a / b = " << a / b << std::endl;
+    std::cout << "a % b = " << a % b << std::endl;
+
+    // Relational operators
+    std::cout << "a == b = " << (a == b) << std::endl;
+    std::cout << "a != b = " << (a != b) << std::endl;
+    std::cout << "a > b = " << (a > b) << std::endl;
+    std::cout << "a < b = " << (a < b) << std::endl;
+    std::cout << "a >= b = " << (a >= b) << std::endl;
+    std::cout << "a <= b = " << (a <= b) << std::endl;
+
+    // Logical operators
+    bool c = true;
+    bool d = false;
+    std::cout << "c && d = " << (c && d) << std::endl;
+    std::cout << "c || d = " << (c || d) << std::endl;
+    std::cout << "!c = " << !c << std::endl;
+
+    // Bitwise operators
+    int e = 5; // 101
+    int f = 3; // 011
+    std::cout << "e & f = " << (e & f) << std::endl; // 001
+    std::cout << "e | f = " << (e | f) << std::endl; // 111
+    std::cout << "e ^ f = " << (e ^ f) << std::endl; // 110
+    std::cout << "~e = " << ~e << std::endl; // 11111111111111111111111111111010
+
+    // Assignment operators
+    int g = 10;
+    g += 5;
+    std::cout << "g = " << g << std::endl;
+
+    // Conditional(Ternary) operators
+    int h = 10;
+    int i = 20;
+    int j = (h > i) ? h : i;
+    std::cout << "j = " << j << std::endl;
+
+    // Unary operators
+    int k = 10;
+    std::cout << "k++ = " << k++ << std::endl;
+    
+    return 0;
+}
+Type Casting:
+In C++, type conversions allow you to convert a value from one data type to another. There are two main types of type conversions:
+
+### 1. Implicit Type Conversion
+Also known as "automatic" type conversion, this is done by the compiler without any explicit instruction from the user. It usually occurs when different data types are used in an expression. For example:
+
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 10;
+    char y = 'a'; // ASCII value of 'a' is 97
+    x = x + y;    // y is implicitly converted to int
+    float z = x + 1.0; // x is implicitly converted to float
+    std::cout << "x = " << x << "\n";
+    std::cout << "y = " << y << "\n";
+    std::cout << "z = " << z << "\n";
+    return 0;
+}
+```
+
+### 2. Explicit Type Conversion
+Also known as "type casting," this is done manually by the programmer. There are several ways to perform explicit type conversion in C++:
+
+#### a. C-Style Casting
+```cpp
+int main() {
+    double x = 1.2;
+    int sum = (int)x + 1; // Explicit conversion from double to int
+    std::cout << "Sum = " << sum << "\n";
+    return 0;
+}
+```
+
+#### b. `static_cast`
+```cpp
+int main() {
+    float f = 3.5;
+    int b = static_cast<int>(f); // Using static_cast for conversion
+    std::cout << b << "\n";
+    return 0;
+}
+```
+
+#### c. `dynamic_cast`, `const_cast`, and `reinterpret_cast`
+These are more specialized casts used for converting pointers and references, and they have specific use cases in object-oriented programming.
+Code Sample:
+#include <iostream>
+int main() {
+    //Implicit type conversion
+    int a = 10;
+    float b = 20.5;
+    float c = a + b;
+    std::cout << "c = " << c << std::endl;
+
+    //Explicit type conversion
+    int d = 10;
+    float e = 20.5;
+    int f = d + (int)e;
+    std::cout << "f = " << f << std::endl;
+    
+    return 0;
+}
+I/O:
+In C++, `cout` and `cin` are used for standard output and input operations, respectively. They utilize the insertion (`<<`) and extraction (`>>`) operators to handle data.
+
+### `cout` and the Insertion Operator (`<<`)
+- **`cout`**: Stands for "character output" and is used to print data to the console.
+- **Insertion Operator (`<<`)**: Used to insert data into the output stream.
+
+Example:
+```cpp
+#include <iostream>
+
+int main() {
+    int num = 10;
+    std::cout << "The number is: " << num << std::endl;
+    return 0;
+}
+```
+In this example, `std::cout` prints the string "The number is: " followed by the value of `num`.
+
+### `cin` and the Extraction Operator (`>>`)
+- **`cin`**: Stands for "character input" and is used to read data from the keyboard.
+- **Extraction Operator (`>>`)**: Used to extract data from the input stream.
+
+Example:
+```cpp
+#include <iostream>
+
+int main() {
+    int num;
+    std::cout << "Enter a number: ";
+    std::cin >> num;
+    std::cout << "You entered: " << num << std::endl;
+    return 0;
+}
+```
+Here, `std::cin` reads an integer input from the user and stores it in the variable `num`.
+
+### Overloading Insertion and Extraction Operators
+You can also overload these operators for user-defined types to make input and output operations more intuitive.
+
+Example:
+```cpp
+#include <iostream>
+
+class Complex {
+private:
+    int real, imag;
+public:
+    Complex(int r = 0, int i = 0) : real(r), imag(i) {}
+
+    // Overloading the insertion operator
+    friend std::ostream& operator<<(std::ostream& out, const Complex& c) {
+        out << c.real << "+i" << c.imag;
+        return out;
+    }
+
+    // Overloading the extraction operator
+    friend std::istream& operator>>(std::istream& in, Complex& c) {
+        std::cout << "Enter real part: ";
+        in >> c.real;
+        std::cout << "Enter imaginary part: ";
+        in >> c.imag;
+        return in;
+    }
+};
+
+int main() {
+    Complex c1;
+    std::cin >> c1;
+    std::cout << "The complex number is: " << c1 << std::endl;
+    return 0;
+}
+```
+In this example, the `<<` and `>>` operators are overloaded to handle input and output for a `Complex` class.
+Code Sample:
+#include <iostream>
+
+int main() {
+
+    // User IO
+    int a;
+    std::cout << "Enter a number: ";
+    std::cin >> a;
+    std::cout << "You entered: " << a << std::endl;
+
+    // User IO with strings
+    std::string name;
+    std::cout << "Enter your name: ";
+    std::cin >> name;
+    std::cout << "Hello, " << name << std::endl;
+
+    // User IO with multiple strings
+    std::string first_name, last_name;
+    std::cout << "Enter your first name: ";
+    std::cin >> first_name;
+    std::cout << "Enter your last name: ";
+    std::cin >> last_name;
+    std::cout << "Hello, " << first_name << " " << last_name << std::endl;
+
+    // User IO with multiple strings using getline
+    std::string full_name;
+    std::cout << "Enter your full name: ";
+    std::getline(std::cin, full_name);
+    std::cout << "Hello, " << full_name << std::endl;
+
+    // User IO with numbers
+    int x, y;
+    std::cout << "Enter two numbers: ";
+    std::cin >> x >> y;
+    std::cout << "The sum of " << x << " and " << y << " is " << x + y << std::endl;
+
+    return 0;
+
+}
+Using getline after any general cin input
+When you use `getline` after a `cin` input, you might encounter an issue where `getline` seems to be skipped. This happens because `cin` leaves a newline character (`\n`) in the input buffer, which `getline` reads as an empty line. Let's break down the scenario and the solution.
+
+### Scenario
+Consider the following code:
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    int number;
+    std::string name;
+
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+
+    std::cout << "Enter your name: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Number: " << number << ", Name: " << name << std::endl;
+    return 0;
+}
+```
+
+### Problem
+When you run this code, it will prompt you to enter a number. After you enter the number and press Enter, it will immediately print the output without waiting for you to enter your name. This happens because the newline character left in the input buffer by `cin` is read by `getline`.
+
+### Solution
+To fix this, you need to clear the newline character from the input buffer before calling `getline`. You can do this using `std::cin.ignore()` or `std::ws`.
+
+#### Using `std::cin.ignore()`
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    int number;
+    std::string name;
+
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the newline character
+
+    std::cout << "Enter your name: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Number: " << number << ", Name: " << name << std::endl;
+    return 0;
+}
+```
+
+#### Using `std::ws`
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    int number;
+    std::string name;
+
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+
+    std::cout << "Enter your name: ";
+    std::getline(std::cin >> std::ws, name); // Clear the newline character
+
+    std::cout << "Number: " << number << ", Name: " << name << std::endl;
+    return 0;
+}
+```
+
+### Explanation
+- **`std::cin.ignore()`**: This function ignores characters in the input buffer up to a specified limit or until a specified delimiter is found. In this case, it ignores characters until it finds a newline character.
+- **`std::ws`**: This manipulator skips any leading whitespace characters, including the newline character left in the buffer.
+
+By using either of these methods, you ensure that `getline` reads the actual input you intend to provide, rather than an empty line caused by the leftover newline character.
+// Code Sample:
+#include <iostream>
+#include <string>
+#include <limits> // Add this line to include the <limits> header file
+
+// Using std::cin.ignore() to clear the newline character
+int main() {
+    int number;
+    std::string name;
+
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the newline character
+
+    std::cout << "Enter your name: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Number: " << number << ", Name: " << name << std::endl;
+    return 0;
+}
+
+// Using std::cin >> std::ws to clear the newline character
+#include <iostream>
+#include <string>
+
+int main() {
+    int number;
+    std::string name;
+
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+
+    std::cout << "Enter your name: ";
+    std::getline(std::cin >> std::ws, name); // Clear the newline character
+
+    std::cout << "Number: " << number << ", Name: " << name << std::endl;
+    return 0;
+}
+Useful Math functions:
+#include <iostream>
+#include <cmath>
+
+int main() {
+
+    double x = 2.0;
+    double y = 3.0;
+    double power = pow(x, y);
+    std::cout << x << " raised to the power of " << y << " is " << power << std::endl;
+    double max = fmax(x, y);
+    double min = fmin(x, y);
+    std::cout << "The maximum of " << x << " and " << y << " is " << max << std::endl;
+    std::cout << "The minimum of " << x << " and " << y << " is " << min << std::endl;
+    double absolute = fabs(-10.0);
+    std::cout << "The absolute value of -10 is " << absolute << std::endl;
+    double ceiling = ceil(25.6);
+    double floorValue = floor(25.6);
+    std::cout << "The ceiling of 25.6 is " << ceiling << std::endl;
+    std::cout << "The floor of 25.6 is " << floor << std::endl;
+    double roundedValue = std::round(25.6);
+    std::cout << "The round of 25.6 is " << round << std::endl;
+    double remainder = fmod(10.5, 3.2);
+    std::cout << "The remainder of 10.5 divided by 3.2 is " << remainder << std::endl;
+    double squareroot = sqrt(25.0);
+    std::cout << "The square root of 25 is " << squareroot << std::endl;
+    double cuberoot = cbrt(27.0);
+    std::cout << "The cube root of 27 is " << cuberoot << std::endl;
+    double exponent = exp(1.0);
+    std::cout << "The exponent of 1 is " << exponent << std::endl;
+    double logarithm = log(2.71828);
+    std::cout << "The natural logarithm of 2.71828 is " << logarithm << std::endl;
+    double logarithm10 = log10(100.0);
+    std::cout << "The base-10 logarithm of 100 is " << logarithm10 << std::endl;
+    double sine = sin(3.14159 / 2);
+    std::cout << "The sine of 90 degrees is " << sine << std::endl;
+    double cosine = cos(3.14159);
+    std::cout << "The cosine of 180 degrees is " << cosine << std::endl;
+    double tangent = tan(3.14159 / 4);
+    std::cout << "The tangent of 45 degrees is " << tangent << std::endl;
+    double arcsine = asin(1.0);
+    std::cout << "The arcsine of 1 is " << arcsine << std::endl;
+    double arccosine = acos(1.0);
+    std::cout << "The arccosine of 1 is " << arccosine << std::endl;
+    double arctangent = atan(1.0);
+    std::cout << "The arctangent of 1 is " << arctangent << std::endl;
+    double hyperbolicSine = sinh(1.0);
+    std::cout << "The hyperbolic sine of 1 is " << hyperbolicSine << std::endl;
+    double hyperbolicCosine = cosh(1.0);
+    std::cout << "The hyperbolic cosine of 1 is " << hyperbolicCosine << std::endl;
+    double hyperbolicTangent = tanh(1.0);
+    std::cout << "The hyperbolic tangent of 1 is " << hyperbolicTangent << std::endl;
+
+    return 0;
+}
+Conditional Statements in C++:
+Conditional statements in C++ allow you to execute different blocks of code based on certain conditions. Here are the main types of conditional statements:
+
+### 1. `if` Statement
+The `if` statement executes a block of code if a specified condition is true.
+
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 10;
+    if (x > 5) {
+        std::cout << "x is greater than 5" << std::endl;
+    }
+    return 0;
+}
+```
+
+### 2. `if...else` Statement
+The `if...else` statement executes one block of code if a condition is true, and another block if the condition is false.
+
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 10;
+    if (x > 5) {
+        std::cout << "x is greater than 5" << std::endl;
+    } else {
+        std::cout << "x is not greater than 5" << std::endl;
+    }
+    return 0;
+}
+```
+
+### 3. `else if` Ladder
+The `else if` ladder allows you to test multiple conditions sequentially.
+
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 10;
+    if (x > 10) {
+        std::cout << "x is greater than 10" << std::endl;
+    } else if (x == 10) {
+        std::cout << "x is equal to 10" << std::endl;
+    } else {
+        std::cout << "x is less than 10" << std::endl;
+    }
+    return 0;
+}
+```
+
+### 4. Nested `if` Statements
+You can nest `if` statements within other `if` statements to create more complex conditions.
+
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 10;
+    int y = 20;
+    if (x > 5) {
+        if (y > 15) {
+            std::cout << "x is greater than 5 and y is greater than 15" << std::endl;
+        }
+    }
+    return 0;
+}
+```
+
+### 5. `switch` Statement
+The `switch` statement allows you to execute one block of code out of many based on the value of a variable.
+
+```cpp
+#include <iostream>
+
+int main() {
+    int day = 3;
+    switch (day) {
+        case 1:
+            std::cout << "Monday" << std::endl;
+            break;
+        case 2:
+            std::cout << "Tuesday" << std::endl;
+            break;
+        case 3:
+            std::cout << "Wednesday" << std::endl;
+            break;
+        default:
+            std::cout << "Invalid day" << std::endl;
+    }
+    return 0;
+}
+```
+
+### Ternary Operator
+The ternary operator (`? :`) is a shorthand for `if...else` statements.
+
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 10;
+    std::string result = (x > 5) ? "x is greater than 5" : "x is not greater than 5";
+    std::cout << result << std::endl;
+    return 0;
+}
+```
+These conditional statements help control the flow of your program based on different conditions.
+String Methods:
+The `std::string` class in C++ provides a rich set of methods for manipulating and working with strings. Here are some of the most commonly used methods:
+
+### 1. **Length and Size**
+- **`length()`** or **`size()`**: Returns the number of characters in the string.
+```cpp
+std::string str = "Hello";
+std::cout << "Length: " << str.length() << std::endl;
+```
+
+### 2. **Accessing Characters**
+- **`operator[]`**: Accesses a character at a specific index.
+- **`at()`**: Accesses a character at a specific index with bounds checking.
+```cpp
+std::string str = "Hello";
+char ch = str[1]; // 'e'
+char ch2 = str.at(1); // 'e'
+```
+
+### 3. **Appending and Concatenating**
+- **`operator+=`**: Appends a string or character.
+- **`append()`**: Appends a string.
+```cpp
+std::string str = "Hello";
+str += " World";
+str.append("!");
+```
+
+### 4. **Comparing Strings**
+- **`operator==`**: Compares two strings for equality.
+- **`compare()`**: Compares two strings lexicographically.
+```cpp
+std::string str1 = "Hello";
+std::string str2 = "World";
+bool isEqual = (str1 == str2); // false
+int result = str1.compare(str2); // negative value
+```
+
+### 5. **Substrings**
+- **`substr()`**: Returns a substring starting from a specified position.
+```cpp
+std::string str = "Hello World";
+std::string sub = str.substr(0, 5); // "Hello"
+```
+
+### 6. **Searching**
+- **`find()`**: Finds the first occurrence of a substring.
+```cpp
+std::string str = "Hello World";
+size_t pos = str.find("World"); // 6
+```
+
+### 7. **Modifying Strings**
+- **`replace()`**: Replaces a portion of the string with another string.
+- **`insert()`**: Inserts a string at a specified position.
+- **`erase()`**: Removes a portion of the string.
+```cpp
+std::string str = "Hello World";
+str.replace(6, 5, "C++"); // "Hello C++"
+str.insert(5, ","); // "Hello, C++"
+str.erase(5, 1); // "Hello C++"
+```
+
+### 8. **Conversion**
+- **`c_str()`**: Returns a C-style string (const char*).
+```cpp
+std::string str = "Hello";
+const char* cstr = str.c_str();
+```
+In C++, loops are used to execute a block of code repeatedly until a specified condition is met. There are three main types of loops:
+
+### 1. `for` Loop
+The `for` loop is used when you know in advance how many times you want to execute a statement or a block of statements.
+
+**Syntax:**
+```cpp
+for (initialization; condition; update) {
+    // Code to be executed
+}
+```
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 0; i < 5; i++) {
+        std::cout << "i = " << i << std::endl;
+    }
+    return 0;
+}
+```
+
+### 2. `while` Loop
+The `while` loop is used when you want to execute a block of code as long as a condition is true.
+
+**Syntax:**
+```cpp
+while (condition) {
+    // Code to be executed
+}
+```
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    int i = 0;
+    while (i < 5) {
+        std::cout << "i = " << i << std::endl;
+        i++;
+    }
+    return 0;
+}
+```
+
+### 3. `do...while` Loop
+The `do...while` loop is similar to the `while` loop, but it guarantees that the code block will be executed at least once.
+
+**Syntax:**
+```cpp
+do {
+    // Code to be executed
+} while (condition);
+```
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    int i = 0;
+    do {
+        std::cout << "i = " << i << std::endl;
+        i++;
+    } while (i < 5);
+    return 0;
+}
+```
+
+### Range-based `for` Loop
+Introduced in C++11, the range-based `for` loop is used to iterate over elements in a container (like arrays or vectors).
+
+**Syntax:**
+```cpp
+for (element : container) {
+    // Code to be executed
+}
+```
+
+**Example:**
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {1, 2, 3, 4, 5};
+    for (int num : numbers) {
+        std::cout << num << std::endl;
+    }
+    return 0;
+}
+```
+
+### Explanation:
+- **`for` Loop**: Best used when the number of iterations is known beforehand.
+- **`while` Loop**: Ideal for situations where the condition needs to be checked before each iteration.
+- **`do...while` Loop**: Ensures the code block runs at least once, even if the condition is false initially.
+- **Range-based `for` Loop**: Simplifies iteration over containers like arrays and vectors.
+### Nested Loops
+A nested loop is a loop inside another loop. The inner loop will be executed completely for each iteration of the outer loop.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 3; j++) {
+            std::cout << "i = " << i << ", j = " << j << std::endl;
+        }
+    }
+    return 0;
+}
+```
+In this example, the inner loop runs three times for each iteration of the outer loop, resulting in a total of 9 iterations.
+
+### Infinite Loops
+An infinite loop runs indefinitely because the loop condition is always true. Be cautious with infinite loops as they can cause your program to hang.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    while (true) {
+        std::cout << "This will print forever!" << std::endl;
+    }
+    return 0;
+}
+```
+You can stop an infinite loop using a `break` statement or by manually terminating the program.
+
+### `break` and `continue` Statements
+- **`break`**: Exits the loop immediately.
+- **`continue`**: Skips the rest of the current iteration and proceeds to the next iteration.
+
+**Example with `break`:**
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        if (i == 5) {
+            break; // Exit the loop when i is 5
+        }
+        std::cout << i << std::endl;
+    }
+    return 0;
+}
+```
+
+**Example with `continue`:**
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        if (i == 5) {
+            continue; // Skip the rest of the loop when i is 5
+        }
+        std::cout << i << std::endl;
+    }
+    return 0;
+}
+```
+
+### Loop Control with Functions
+You can use functions to control loops, making your code more modular and easier to manage.
+
+**Example:**
+```cpp
+#include <iostream>
+
+void printNumbers(int n) {
+    for (int i = 1; i <= n; i++) {
+        std::cout << i << std::endl;
+    }
+}
+
+int main() {
+    printNumbers(5); // Call the function to print numbers from 1 to 5
+    return 0;
+}
+```
+
+### Looping Through Arrays
+Loops are often used to iterate through arrays or other data structures.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    for (int i = 0; i < size; i++) {
+        std::cout << arr[i] << std::endl;
+    }
+    return 0;
+}
+```
+Break and Continue
+The `break` and `continue` statements in C++ are used to control the flow of loops. Here's a detailed explanation of each:
+
+### `break` Statement
+The `break` statement is used to exit a loop or switch statement prematurely. When `break` is encountered, the loop or switch is terminated immediately, and control is transferred to the statement following the loop or switch.
+
+**Example with `for` Loop:**
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 0; i < 10; i++) {
+        if (i == 5) {
+            break; // Exit the loop when i is 5
+        }
+        std::cout << i << std::endl;
+    }
+    return 0;
+}
+```
+In this example, the loop will terminate when `i` equals 5, so the numbers 0 to 4 will be printed.
+
+### `continue` Statement
+The `continue` statement skips the rest of the current iteration of the loop and proceeds with the next iteration. It does not terminate the loop but skips the remaining code in the current iteration.
+
+**Example with `for` Loop:**
+```cpp
+#include <iostream>
+
+int main() {
+    for (int i = 0; i < 10; i++) {
+        if (i == 5) {
+            continue; // Skip the rest of the loop when i is 5
+        }
+        std::cout << i << std::endl;
+    }
+    return 0;
+}
+```
+In this example, the loop will skip printing the number 5, so the numbers 0 to 9 except 5 will be printed.
+
+### Using `break` and `continue` in `while` Loops
+Both `break` and `continue` can also be used in `while` and `do...while` loops.
+
+**Example with `while` Loop:**
+```cpp
+#include <iostream>
+
+int main() {
+    int i = 0;
+    while (i < 10) {
+        if (i == 5) {
+            i++;
+            continue; // Skip the rest of the loop when i is 5
+        }
+        std::cout << i << std::endl;
+        i++;
+    }
+    return 0;
+}
+```
+In this example, the loop will skip printing the number 5, similar to the `for` loop example.
+
+### Summary
+- **`break`**: Exits the loop or switch statement immediately.
+- **`continue`**: Skips the rest of the current iteration and proceeds with the next iteration of the loop.
+
+These statements are useful for controlling the flow of loops based on specific conditions.
+Random:
+Sure! Let's break down the code and explain how it works, along with the definitions of the individual functions used.
+
+### Code Explanation
+```cpp
+#include <iostream>
+#include <ctime>
+
+int main() {
+    srand(time(0));
+    int number = rand() % 100 + 1;
+    int guess;
+}
+```
+
+### Detailed Breakdown
+
+1. **Including Libraries**
+   ```cpp
+   #include <iostream>
+   #include <ctime>
+   ```
+   - **`#include <iostream>`**: This library is included to use input and output streams like `std::cout` and `std::cin`.
+   - **`#include <ctime>`**: This library is included to use the `time` function, which provides the current time.
+
+2. **Main Function**
+   ```cpp
+   int main() {
+   ```
+   - This is the entry point of the program where execution starts.
+
+3. **Seeding the Random Number Generator**
+   ```cpp
+   srand(time(0));
+   ```
+   - **`srand(unsigned int seed)`**: This function seeds the random number generator used by `rand()`. Seeding with `time(0)` ensures that the random numbers generated are different each time the program runs.
+   - **`time(0)`**: This function returns the current calendar time as a `time_t` object. When passed to `srand`, it provides a unique seed based on the current time⁵⁶.
+
+4. **Generating a Random Number**
+   ```cpp
+   int number = rand() % 100 + 1;
+   ```
+   - **`rand()`**: This function generates a pseudo-random integer between 0 and `RAND_MAX` (a constant defined in `<cstdlib>`).
+   - **`rand() % 100 + 1`**: This expression generates a random number between 1 and 100. The modulo operator (`%`) limits the range to 0-99, and adding 1 shifts the range to 1-100¹².
+
+5. **Declaring a Variable for User Input**
+   ```cpp
+   int guess;
+   ```
+   - This line declares an integer variable `guess` to store the user's guess.
+
+### Summary
+- **`srand(time(0))`**: Seeds the random number generator with the current time to ensure different random numbers on each run.
+- **`rand() % 100 + 1`**: Generates a random number between 1 and 100.
+- **`int guess`**: Declares a variable to store the user's guess.
+
+Functions in C++:
+Functions in C++ are blocks of code designed to perform specific tasks. They help in organizing code, making it reusable, and improving readability. Let's explore the key aspects of functions in C++.
+
+### Function Declaration and Definition
+A function in C++ consists of two main parts: the declaration and the definition.
+
+- **Declaration**: Specifies the function's name, return type, and parameters (if any).
+- **Definition**: Contains the actual code that performs the task.
+
+**Syntax:**
+```cpp
+returnType functionName(parameter1, parameter2, ...) {
+    // Code to be executed
+}
+```
+
+**Example:**
+```cpp
+#include <iostream>
+
+// Function declaration
+void greet();
+
+// Function definition
+void greet() {
+    std::cout << "Hello, World!" << std::endl;
+}
+
+int main() {
+    greet(); // Function call
+    return 0;
+}
+```
+
+### Function Parameters and Return Type
+Functions can take parameters (arguments) and return a value.
+
+**Example with Parameters and Return Type:**
+```cpp
+#include <iostream>
+
+// Function declaration
+int add(int a, int b);
+
+// Function definition
+int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int sum = add(5, 3); // Function call
+    std::cout << "Sum: " << sum << std::endl;
+    return 0;
+}
+```
+
+### Function Overloading
+C++ allows you to define multiple functions with the same name but different parameters. This is known as function overloading.
+
+**Example:**
+```cpp
+#include <iostream>
+
+// Overloaded functions
+void print(int i) {
+    std::cout << "Integer: " << i << std::endl;
+}
+
+void print(double f) {
+    std::cout << "Float: " << f << std::endl;
+}
+
+void print(std::string s) {
+    std::cout << "String: " << s << std::endl;
+}
+
+int main() {
+    print(10);
+    print(3.14);
+    print("Hello");
+    return 0;
+}
+```
+
+### Inline Functions
+Inline functions are defined with the `inline` keyword and are expanded in line where they are called, which can improve performance for small, frequently called functions.
+
+**Example:**
+```cpp
+#include <iostream>
+
+inline int square(int x) {
+    return x * x;
+}
+
+int main() {
+    std::cout << "Square of 5: " << square(5) << std::endl;
+    return 0;
+}
+```
+
+### Recursive Functions
+A recursive function is a function that calls itself to solve a problem.
+
+**Example:**
+```cpp
+#include <iostream>
+
+// Recursive function to calculate factorial
+int factorial(int n) {
+    if (n <= 1) return 1;
+    else return n * factorial(n - 1);
+}
+
+int main() {
+    std::cout << "Factorial of 5: " << factorial(5) << std::endl;
+    return 0;
+}
+```
+Return keyword:
+The `return` keyword in C++ is used to exit a function and optionally return a value to the function caller. It plays a crucial role in controlling the flow of a program and ensuring that functions provide the necessary results.
+
+### How `return` Works
+1. **Exiting a Function**: When the `return` statement is executed, the function terminates immediately, and control is passed back to the calling function.
+2. **Returning a Value**: If the function is designed to return a value, the `return` statement must be followed by an expression that matches the function's return type.
+
+### Syntax
+```cpp
+return [expression];
+```
+
+### Examples
+
+#### 1. Function Returning a Value
+Here's an example of a function that returns the sum of two integers:
+
+```cpp
+#include <iostream>
+
+// Function declaration
+int add(int a, int b);
+
+int main() {
+    int num1 = 5, num2 = 3;
+    int sum = add(num1, num2); // Function call
+    std::cout << "The sum is: " << sum << std::endl;
+    return 0;
+}
+
+// Function definition
+int add(int a, int b) {
+    return a + b; // Return the sum of a and b
+}
+```
+In this example, the `add` function returns the sum of `a` and `b` to the caller.
+
+#### 2. Function Without Returning a Value
+For functions that do not return a value, the `void` return type is used, and the `return` statement can be omitted or used without an expression.
+
+```cpp
+#include <iostream>
+
+// Function declaration
+void greet();
+
+int main() {
+    greet(); // Function call
+    return 0;
+}
+
+// Function definition
+void greet() {
+    std::cout << "Hello, World!" << std::endl;
+    return; // Optional in void functions
+}
+```
+In this example, the `greet` function does not return a value, so the `return` statement is optional.
+
+### Key Points
+- **Mandatory for Non-Void Functions**: In functions with a return type other than `void`, the `return` statement must return a value of the specified type.
+- **Optional for Void Functions**: In `void` functions, the `return` statement can be used to exit the function early, but it does not need to return a value.
+- **Multiple Return Statements**: A function can have multiple `return` statements, but only one will be executed based on the flow of the program.
+
+The `return` keyword is essential for managing the flow of functions and ensuring that they provide the necessary results to the calling code¹²³.
+Method Overloading:
+Method overloading in C++ allows you to define multiple functions with the same name but different parameters. This feature enhances the readability and maintainability of your code by enabling you to use the same function name for different tasks based on the parameters passed.
+
+### Key Points of Method Overloading
+1. **Same Function Name**: All overloaded methods must have the same name.
+2. **Different Parameters**: The parameters must differ in type, number, or both.
+3. **Return Type**: The return type can be the same or different, but it does not contribute to the method's signature for overloading purposes.
+
+### Examples of Method Overloading
+
+#### Example 1: Different Parameter Types
+```cpp
+#include <iostream>
+
+// Overloaded functions
+void print(int i) {
+    std::cout << "Here is int: " << i << std::endl;
+}
+
+void print(double f) {
+    std::cout << "Here is float: " << f << std::endl;
+}
+
+void print(const char* c) {
+    std::cout << "Here is char*: " << c << std::endl;
+}
+
+int main() {
+    print(10);        // Calls print(int)
+    print(10.10);     // Calls print(double)
+    print("ten");     // Calls print(const char*)
+    return 0;
+}
+```
+
+#### Example 2: Different Number of Parameters
+```cpp
+#include <iostream>
+
+// Overloaded functions
+void add(int a, int b) {
+    std::cout << "Sum = " << (a + b) << std::endl;
+}
+
+void add(int a, int b, int c) {
+    std::cout << "Sum = " << (a + b + c) << std::endl;
+}
+
+int main() {
+    add(10, 2);       // Calls add(int, int)
+    add(5, 6, 4);     // Calls add(int, int, int)
+    return 0;
+}
+```
+
+#### Example 3: Different Sequence of Parameters
+```cpp
+#include <iostream>
+
+// Overloaded functions
+void add(int a, double b) {
+    std::cout << "Sum = " << (a + b) << std::endl;
+}
+
+void add(double a, int b) {
+    std::cout << "Sum = " << (a + b) << std::endl;
+}
+
+int main() {
+    add(10, 2.5);     // Calls add(int, double)
+    add(5.5, 6);      // Calls add(double, int)
+    return 0;
+}
+```
+
+### Benefits of Method Overloading
+- **Improved Readability**: Using the same function name for similar operations makes the code easier to understand.
+- **Code Reusability**: Allows you to reuse the same function name for different types of operations, reducing redundancy.
+- **Polymorphism**: Method overloading is a form of compile-time polymorphism, allowing the same function to behave differently based on the parameters¹²³.
+Code Sample:
+#include <iostream>
+
+void bakePizza();
+void bakePizza(std::string topping);
+void bakePizza(std::string topping1, std::string topping2);
+
+int main() {
+    bakePizza();
+    bakePizza("Pepperoni");
+    bakePizza("Pepperoni", "Mushrooms");
+    return 0;
+}
+
+void bakePizza() {
+    std::cout << "Baking a plain pizza" << std::endl;
+}
+
+void bakePizza(std::string topping) {
+    std::cout << "Baking a pizza with " << topping << std::endl;
+}
+
+void bakePizza(std::string topping1, std::string topping2) {
+    std::cout << "Baking a pizza with " << topping1 << " and " << topping2 << std::endl;
+}
+Scope:
+In C++, the scope of a variable determines where it can be accessed within the code. There are mainly two types of variable scopes: **local scope** and **global scope**.
+
+### Local Scope
+A variable declared inside a function or a block (enclosed in `{}`) is said to have local scope. It can only be accessed within that function or block.
+
+**Example:**
+```cpp
+#include <iostream>
+
+void myFunction() {
+    int localVar = 10; // localVar is local to myFunction
+    std::cout << "Local variable: " << localVar << std::endl;
+}
+
+int main() {
+    myFunction();
+    // std::cout << localVar; // Error: localVar is not accessible here
+    return 0;
+}
+```
+In this example, `localVar` is only accessible within `myFunction`.
+
+### Global Scope
+A variable declared outside of all functions is said to have global scope. It can be accessed from any part of the program.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int globalVar = 20; // globalVar is global
+
+void myFunction() {
+    std::cout << "Global variable in myFunction: " << globalVar << std::endl;
+}
+
+int main() {
+    std::cout << "Global variable in main: " << globalVar << std::endl;
+    myFunction();
+    return 0;
+}
+```
+Here, `globalVar` is accessible both in `main` and `myFunction`.
+
+### Block Scope
+Variables declared inside a block (e.g., within an `if` statement or a loop) are only accessible within that block.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    if (true) {
+        int blockVar = 30; // blockVar is local to this if block
+        std::cout << "Block variable: " << blockVar << std::endl;
+    }
+    // std::cout << blockVar; // Error: blockVar is not accessible here
+    return 0;
+}
+```
+In this example, `blockVar` is only accessible within the `if` block.
+
+### Function Scope
+Labels used in `goto` statements have function scope. They can be accessed anywhere within the function.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    goto label; // Jumps to the label
+    std::cout << "This will be skipped." << std::endl;
+
+label:
+    std::cout << "This is a label." << std::endl;
+    return 0;
+}
+```
+Here, the label `label` can be accessed anywhere within the `main` function.
+
+### Summary
+- **Local Scope**: Variables declared within a function or block.
+- **Global Scope**: Variables declared outside all functions.
+- **Block Scope**: Variables declared within a specific block.
+- **Function Scope**: Labels used in `goto` statements.
+
+Understanding variable scope is crucial for managing variable visibility and lifetime in your programs.
+Get some knowledge:
+#include <iostream>
+
+int x = 100; // Global variable
+
+void printx() {
+    int x = 20; // Local variable to printx
+    std::cout << x << std::endl; // Prints the local variable x (20)
+}
+
+int main() {
+    int x = 10; // Local variable to main
+    {
+        int x = 20; // Local variable to this block
+        std::cout << x << std::endl; // Prints the block's local variable x (20)
+    }
+    std::cout << x << std::endl; // Prints the main's local variable x (10)
+    return 0;
+}
+
+/*
+Why the Global Variable Isn’t Implicated
+Shadowing: In both printx and main, local variables named x are declared. These local variables shadow the global variable x within their respective scopes.
+Scope Rules: According to C++ scope rules, the most locally scoped variable is used when there are multiple variables with the same name. Therefore, the global variable x is not accessed in printx or main because the local variables take precedence.
+*/
+Arrays:
+Arrays in C++ are a fundamental data structure used to store multiple values of the same type in a contiguous block of memory. They are useful for managing collections of data efficiently. Let's explore arrays with some examples and explanations.
+
+### Declaring and Initializing Arrays
+You can declare an array by specifying the data type, the name of the array, and the size of the array.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    int arr[5]; // Declaration of an array of 5 integers
+
+    // Initializing the array
+    arr[0] = 10;
+    arr[1] = 20;
+    arr[2] = 30;
+    arr[3] = 40;
+    arr[4] = 50;
+
+    // Printing the array elements
+    for (int i = 0; i < 5; i++) {
+        std::cout << arr[i] << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### Initializing Arrays at Declaration
+You can also initialize an array at the time of declaration.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    int arr[5] = {10, 20, 30, 40, 50}; // Declaration and initialization
+
+    // Printing the array elements
+    for (int i = 0; i < 5; i++) {
+        std::cout << arr[i] << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### Accessing Array Elements
+Array elements are accessed using their indices, which start from 0.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    int arr[5] = {10, 20, 30, 40, 50};
+
+    // Accessing and printing the third element
+    std::cout << "The third element is: " << arr[2] << std::endl;
+
+    return 0;
+}
+```
+
+### Multi-Dimensional Arrays
+C++ supports multi-dimensional arrays, such as 2D arrays, which can be thought of as arrays of arrays.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int main() {
+    int matrix[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    // Printing the 2D array elements
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### Summary
+- **Declaration**: `int arr[5];`
+- **Initialization**: `int arr[5] = {10, 20, 30, 40, 50};`
+- **Accessing Elements**: `arr[2]` (accesses the third element)
+- **Multi-Dimensional Arrays**: `int matrix[3][3];`
+
+Arrays are a powerful tool in C++ for managing collections of data efficiently.
+forEach loop:
+The `foreach` loop in C++ is also known as the range-based `for` loop. It was introduced in C++11 and is used to iterate over elements in a container, such as arrays, vectors, or other data structures. This loop simplifies the process of traversing elements by eliminating the need for explicit indexing.
+
+### Syntax
+```cpp
+for (type variable : container) {
+    // code block to be executed
+}
+```
+- **type**: The data type of the variable that will hold each element.
+- **variable**: The variable that will take the value of each element in the container.
+- **container**: The array or container object to iterate over.
+
+### Example with Arrays
+```cpp
+#include <iostream>
+
+int main() {
+    int myNumbers[] = {10, 20, 30, 40, 50};
+
+    // Using range-based for loop to iterate over the array
+    for (int num : myNumbers) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+**Output:**
+```
+10 20 30 40 50
+```
+
+### Example with Vectors
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> myVector = {1, 2, 3, 4, 5};
+
+    // Using range-based for loop to iterate over the vector
+    for (int num : myVector) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+**Output:**
+```
+1 2 3 4 5
+```
+
+### Using `auto` Keyword
+You can use the `auto` keyword to let the compiler deduce the type of the variable automatically.
+
+**Example:**
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> myVector = {1, 2, 3, 4, 5};
+
+    // Using auto keyword in range-based for loop
+    for (auto num : myVector) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+**Output:**
+```
+1 2 3 4 5
+```
+
+### Summary
+- **Range-based for loop**: Simplifies iteration over containers.
+- **Syntax**: `for (type variable : container) { // code block }`
+- **Use with `auto`**: Allows automatic type deduction.
+
+The range-based `for` loop is a powerful feature in C++ that makes code cleaner and easier to read.
+Passing Array to a Function:
+Sure! Let's break down and document the code step by step.
+
+### Explanation and Documentation
+
+#### Problem Statement
+When passing an array to a function in C++, the size of the array is not automatically passed along. Therefore, the size must be passed as a separate argument to the function.
+
+#### Original Code (Commented Out)
+```cpp
+/*
+double getTotal(int arr[]);
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    double total = getTotal(arr);
+    std::cout << "Total: " << total << std::endl;
+    return 0;
+}
+
+double getTotal(int arr[]) {
+    double total = 0;
+    for (int i : arr) {
+        total += i;
+    }
+    return total;
+}
+*/
+```
+- **Issue**: The function `getTotal` is supposed to calculate the sum of the elements in the array. However, the size of the array is not passed to the function (since the array decays to a pointer by itself), leading to an error. The range-based for loop (`for (int i : arr)`) cannot determine the size of the array.
+
+#### Corrected Code
+```cpp
+#include <iostream>
+
+// Function declaration
+double getTotal(int arr[], int size);
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5}; // Array declaration and initialization
+    double total = getTotal(arr, 5); // Function call with array and its size
+    std::cout << "Total: " << total << std::endl; // Output the total
+    return 0;
+}
+
+// Function definition
+double getTotal(int arr[], int size) {
+    double total = 0;
+    for (int i = 0; i < size; i++) { // Loop through the array using the size
+        total += arr[i]; // Add each element to the total
+    }
+    return total; // Return the total sum
+}
+```
+
+### Detailed Explanation
+
+1. **Function Declaration**
+   ```cpp
+   double getTotal(int arr[], int size);
+   ```
+   - Declares the function `getTotal` that takes an array of integers and its size as arguments and returns a double.
+
+2. **Main Function**
+   ```cpp
+   int main() {
+       int arr[] = {1, 2, 3, 4, 5}; // Array declaration and initialization
+       double total = getTotal(arr, 5); // Function call with array and its size
+       std::cout << "Total: " << total << std::endl; // Output the total
+       return 0;
+   }
+   ```
+   - Declares and initializes an array `arr` with 5 elements.
+   - Calls the `getTotal` function, passing the array and its size (5) as arguments.
+   - Prints the total sum returned by the `getTotal` function.
+
+3. **Function Definition**
+   ```cpp
+   double getTotal(int arr[], int size) {
+       double total = 0;
+       for (int i = 0; i < size; i++) { // Loop through the array using the size
+           total += arr[i]; // Add each element to the total
+       }
+       return total; // Return the total sum
+   }
+   ```
+   - Initializes a variable `total` to 0.
+   - Uses a `for` loop to iterate through the array elements up to the specified size.
+   - Adds each element to the `total`.
+   - Returns the `total` sum.
+
+### Summary
+- **Issue**: The original code did not pass the array size to the function, leading to an error.
+- **Solution**: Pass the array size as a separate argument to the function.
+- **Functionality**: The corrected code calculates the sum of the array elements and prints the result.
+
+This approach ensures that the function can correctly iterate through the array elements using the provided size.
+Searching an Array:
+Searching for an element in an array is a common operation in C++. There are several algorithms to perform this task, each with its own use cases and efficiency. Here are some of the most commonly used searching algorithms:
+
+### 1. Linear Search
+Linear search is the simplest search algorithm. It checks each element of the array sequentially until the desired element is found or the end of the array is reached.
+
+**Example:**
+```cpp
+#include <iostream>
+
+int linearSearch(int arr[], int size, int key) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == key) {
+            return i; // Return the index of the found element
+        }
+    }
+    return -1; // Element not found
+}
+
+int main() {
+    int arr[] = {12, 34, 10, 6, 40};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int key = 40;
+    int result = linearSearch(arr, size, key);
+
+    if (result != -1) {
+        std::cout << "Element found at index: " << result << std::endl;
+    } else {
+        std::cout << "Element not found" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### 2. Binary Search
+Binary search is a more efficient algorithm but requires the array to be sorted. It repeatedly divides the search interval in half and compares the middle element with the target value.
+
+**Example:**
+```cpp
+#include <iostream>
+#include <algorithm> // For std::sort
+
+int binarySearch(int arr[], int low, int high, int key) {
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == key) {
+            return mid; // Element found
+        } else if (arr[mid] < key) {
+            low = mid + 1; // Search in the right half
+        } else {
+            high = mid - 1; // Search in the left half
+        }
+    }
+    return -1; // Element not found
+}
+
+int main() {
+    int arr[] = {5, 6, 7, 8, 9, 10};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int key = 10;
+
+    // Ensure the array is sorted
+    std::sort(arr, arr + size);
+
+    int result = binarySearch(arr, 0, size - 1, key);
+
+    if (result != -1) {
+        std::cout << "Element found at index: " << result << std::endl;
+    } else {
+        std::cout << "Element not found" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### Summary
+- **Linear Search**: Simple but less efficient, with a time complexity of \(O(N)\).
+- **Binary Search**: More efficient with a time complexity of \(O(\log N)\), but requires a sorted array.
+Sorting an Array:
+Sorting an array in C++ can be done using various algorithms. One of the most commonly used methods is the `std::sort` function from the Standard Template Library (STL). Let's explore how to use this function and also look at a custom sorting algorithm.
+
+### Using `std::sort` from STL
+The `std::sort` function is highly efficient and easy to use. It sorts the elements in ascending order by default.
+
+**Example:**
+```cpp
+#include <iostream>
+#include <algorithm> // For std::sort
+
+int main() {
+    int arr[] = {5, 4, 1, 2, 3};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    // Sorting the array
+    std::sort(arr, arr + size);
+
+    // Printing the sorted array
+    std::cout << "Sorted array: ";
+    for (int i = 0; i < size; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+**Output:**
+```
+Sorted array: 1 2 3 4 5
+```
+
+### Custom Sorting Algorithm: Bubble Sort
+Bubble sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
+
+**Example:**
+```cpp
+#include <iostream>
+
+void bubbleSort(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // Swap arr[j] and arr[j + 1]
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    // Sorting the array
+    bubbleSort(arr, size);
+
+    // Printing the sorted array
+    std::cout << "Sorted array: ";
+    for (int i = 0; i < size; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+**Output:**
+```
+Sorted array: 11 12 22 25 34 64 90
+```
+
+### Summary
+- **`std::sort`**: A highly efficient and easy-to-use function from the STL for sorting arrays.
+- **Bubble Sort**: A simple custom sorting algorithm that is easy to understand but less efficient for large datasets.
+
+These methods provide a good starting point for sorting arrays in C++.
+getLine() method
+The `getline` function in C++ is used to read a line of text from an input stream, such as `cin`, into a string. It is part of the `<string>` header and is particularly useful for reading lines of text that may contain spaces.
+
+### Syntax
+```cpp
+std::getline(std::istream& is, std::string& str);
+```
+- **`is`**: The input stream from which to read.
+- **`str`**: The string object where the input will be stored.
+
+### Example
+Here's a simple example demonstrating how to use `getline` to read a full line of text from the user:
+
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string line;
+
+    std::cout << "Enter a line of text: ";
+    std::getline(std::cin, line);
+
+    std::cout << "You entered: " << line << std::endl;
+
+    return 0;
+}
+```
+
+### Using a Delimiter
+You can also specify a delimiter character to stop reading input when that character is encountered.
+
+**Example:**
+```cpp
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string line;
+
+    std::cout << "Enter a line of text (end with $): ";
+    std::getline(std::cin, line, '$');
+
+    std::cout << "You entered: " << line << std::endl;
+
+    return 0;
+}
+```
+
+### Explanation
+- **`std::getline(std::cin, line)`**: Reads a line of text from the standard input (`cin`) and stores it in the string `line`.
+- **`std::getline(std::cin, line, '$')`**: Reads input until the `$` character is encountered and stores it in the string `line`.
+
+### Summary
+- **`getline`**: Reads a full line of text, including spaces.
+- **Delimiter**: Optionally, you can specify a delimiter to stop reading input.
+
+This function is very handy for handling user input that includes spaces or specific delimiters.
+Fill array with user input 
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cout << "Enter the number of elements: ";
+    cin >> n;
+
+    int arr[n];
+    cout << "Enter " << n << " elements:" << endl;
+    for (int i = 0; i < n; ++i) {
+        getline(cin , arr[i]);
+    }
+
+    cout << "You entered: ";
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+Multi Dimensional Arrays
+Sure! Here are some key points about multi-dimensional arrays in C++:
+
+### Definition
+- **Multi-dimensional arrays** are arrays of arrays. The most common type is the two-dimensional array, but you can have arrays with more dimensions.
+
+### Declaration
+- **Two-dimensional array**: `type arrayName[rows][columns];`
+  ```cpp
+  int arr[3][4]; // 3 rows and 4 columns
+  ```
+
+### Initialization
+- You can initialize multi-dimensional arrays at the time of declaration.
+  ```cpp
+  int arr[3][4] = {
+      {1, 2, 3, 4},
+      {5, 6, 7, 8},
+      {9, 10, 11, 12}
+  };
+  ```
+- If you provide an initializer list, you can omit the row size, but not the column size.
+  ```cpp
+  int arr[][4] = {
+      {1, 2, 3, 4},
+      {5, 6, 7, 8},
+      {9, 10, 11, 12}
+  };
+  ```
+
+### Accessing Elements
+- Elements are accessed using row and column indices.
+  ```cpp
+  int value = arr[1][2]; // Accesses the element at 2nd row, 3rd column
+  ```
+
+### Iterating Over Elements
+- You can use nested loops to iterate over the elements of a multi-dimensional array.
+  ```cpp
+  for (int i = 0; i < 3; ++i) {
+      for (int j = 0; j < 4; ++j) {
+          cout << arr[i][j] << " ";
+      }
+      cout << endl;
+  }
+  ```
+
+### Memory Layout
+- Multi-dimensional arrays are stored in **row-major order**. This means that the entire first row is stored in contiguous memory locations, followed by the entire second row, and so on.
+
+### Higher Dimensions
+- You can declare arrays with more than two dimensions.
+  ```cpp
+  int arr[2][3][4]; // 3D array with 2 layers, each containing a 3x4 matrix
+  ```
+
+### Practical Uses
+- Multi-dimensional arrays are useful for representing matrices, grids, and other tabular data structures.
+
+### Example
+Here's a complete example that demonstrates the use of a two-dimensional array:
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int rows = 3, cols = 4;
+    int arr[3][4] = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+
+    cout << "Array elements:" << endl;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+```
+Why multi dimensional arrays don't need row count for initialization ?
+In C++, when initializing multi-dimensional arrays, the row count is not always required because the compiler can infer the size from the provided initializer list. Here's an example to illustrate this:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+```
+
+In this example, the compiler can determine that `arr` has 3 rows because there are 3 sub-arrays provided in the initializer list. However, the number of columns (3 in this case) must be specified because the compiler needs to know the size of each sub-array to correctly allocate memory and access elements.
+
+If you don't provide an initializer list, you must specify both dimensions:
+
+```cpp
+int arr[3][3];
+```
+
+This tells the compiler to allocate space for a 3x3 array. 
+Memory Address
+In C++, every variable you declare is stored at a specific location in the computer's memory, known as its memory address. You can access this address using the **address-of operator** (`&`). Here's a simple example:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int var = 42;
+    cout << "The memory address of var is: " << &var << endl;
+    return 0;
+}
+```
+
+In this code, `&var` gives the memory address of the variable `var`. When you run this program, it will output the memory address in hexadecimal format, like `0x7ffee4b8`.
+
+Understanding memory addresses is crucial for working with **pointers** in C++. Pointers are variables that store the memory addresses of other variables, allowing you to manipulate data directly in memory.
+Pass by value:
+In C++, **pass by value** means that when you pass an argument to a function, a copy of the argument's value is made and passed to the function. This means that any changes made to the parameter inside the function do not affect the original argument. Here's a simple example to illustrate this:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void swap(int x, int y) {
+    int temp = x;
+    x = y;
+    y = temp;
+    cout << "Inside swap function: x = " << x << ", y = " << y << endl;
+}
+
+int main() {
+    int a = 10, b = 20;
+    cout << "Before swap: a = " << a << ", b = " << b << endl;
+    swap(a, b);
+    cout << "After swap: a = " << a << ", b = " << b << endl;
+    return 0;
+}
+```
+
+Output:
+```
+Before swap: a = 10, b = 20
+Inside swap function: x = 20, y = 10
+After swap: a = 10, b = 20
+```
+
+In this example, the values of `a` and `b` remain unchanged after the `swap` function is called because the function works with copies of the variables, not the original variables.
+Pass by Reference:
+In C++, **pass by reference** allows a function to modify the original variable directly, rather than working with a copy. This is done by passing the reference (or address) of the variable to the function. Here's an example:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void swap(int &x, int &y) {
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+int main() {
+    int a = 10, b = 20;
+    cout << "Before swap: a = " << a << ", b = " << b << endl;
+    swap(a, b);
+    cout << "After swap: a = " << a << ", b = " << b << endl;
+    return 0;
+}
+```
+
+Output:
+```
+Before swap: a = 10, b = 20
+After swap: a = 20, b = 10
+```
+
+In this example, the `swap` function takes two integer references as parameters. When `swap(a, b)` is called, the function modifies the actual values of `a` and `b`.
+const Keyword in C++:
+In C++, the `const` keyword can be used to make function parameters constant, meaning their values cannot be modified within the function. This is particularly useful for ensuring that the function does not alter the arguments passed to it, which can help prevent bugs and make the code easier to understand.
+
+Here's an example:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void printValue(const int x) {
+    // x = 10; // This would cause a compile-time error
+    cout << "The value is: " << x << endl;
+}
+
+int main() {
+    int a = 5;
+    printValue(a);
+    return 0;
+}
+```
+
+In this example, the parameter `x` in the `printValue` function is declared as `const`, so any attempt to modify `x` within the function will result in a compile-time error¹².
+
+Using `const` parameters is especially beneficial when passing large objects by reference. It ensures that the function does not modify the object while avoiding the overhead of copying the object. Here's an example with a reference:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+void printArray(const int (&arr)[5]) {
+    for (int i = 0; i < 5; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int myArray[5] = {1, 2, 3, 4, 5};
+    printArray(myArray);
+    return 0;
+}
+```
+
+In this example, the array `myArray` is passed by reference to the `printArray` function, and the `const` keyword ensures that the function cannot modify the array elements.
+Pointers in C++:
+In C++, a **pointer** is a variable that stores the memory address of another variable. Pointers are powerful tools that allow you to directly manipulate memory, which can be useful for dynamic memory allocation, arrays, and functions. Here's a basic example to illustrate how pointers work:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int var = 42;      // Declare an integer variable
+    int *ptr;         // Declare a pointer to an integer
+
+    ptr = &var;       // Assign the address of var to the pointer
+
+    cout << "Value of var: " << var << endl;
+    cout << "Address of var: " << &var << endl;
+    cout << "Value of ptr (address of var): " << ptr << endl;
+    cout << "Value pointed to by ptr: " << *ptr << endl;
+
+    return 0;
+}
+```
+
+In this example:
+- `int *ptr;` declares a pointer `ptr` that can hold the address of an integer.
+- `ptr = &var;` assigns the address of `var` to `ptr`.
+- `*ptr` is used to access the value stored at the address `ptr` points to.
+
+Output:
+```
+Value of var: 42
+Address of var: 0x7ffee4b8
+Value of ptr (address of var): 0x7ffee4b8
+Value pointed to by ptr: 42
+```
+
+### Key Concepts of Pointers
+1. **Declaration**: `int *ptr;` declares a pointer to an integer.
+2. **Address-of Operator (`&`)**: Used to get the address of a variable.
+3. **Dereference Operator (`*`)**: Used to access the value at the address the pointer points to.
+
+Pointers are also essential for dynamic memory allocation using `new` and `delete`, and for creating complex data structures like linked lists and trees¹²³.
+Null Pointers
+In C++, a **null pointer** is a pointer that does not point to any valid memory location. It is often used to indicate that the pointer is not currently assigned to any object or memory. Here's how you can work with null pointers:
+
+### Declaring a Null Pointer
+Before C++11, you would typically use `NULL` or `0` to initialize a null pointer:
+
+```cpp
+int* ptr = NULL; // or
+int* ptr = 0;
+```
+
+Since C++11, the `nullptr` keyword is introduced, which is a better and safer way to represent a null pointer:
+
+```cpp
+int* ptr = nullptr;
+```
+
+### Checking for Null Pointers
+You can check if a pointer is null before dereferencing it to avoid runtime errors:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int* ptr = nullptr;
+
+    if (ptr == nullptr) {
+        cout << "Pointer is null." << endl;
+    } else {
+        cout << "Pointer is not null." << endl;
+    }
+
+    return 0;
+}
+```
+
+### Applications of Null Pointers
+1. **Initialization**: It's good practice to initialize pointers to `nullptr` to avoid undefined behavior.
+2. **Error Handling**: Functions can return `nullptr` to indicate an error or that no valid data is available.
+3. **Sentinel Values**: In data structures like linked lists, a null pointer can signify the end of the list.
+
+### Example
+Here's a simple example demonstrating the use of a null pointer:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int* ptr = nullptr; // Initialize pointer to null
+
+    if (ptr == nullptr) {
+        cout << "Pointer is currently null." << endl;
+    }
+
+    int value = 5;
+    ptr = &value; // Assign a valid address to the pointer
+
+    if (ptr != nullptr) {
+        cout << "Pointer is not null. Value: " << *ptr << endl;
+    }
+
+    return 0;
+}
+```
+
+In this example, the pointer `ptr` is initially set to `nullptr` and later assigned the address of `value`. The program checks if the pointer is null before dereferencing it.
+Dynamic Memory in C++:
+Dynamic memory allocation in C++ allows you to allocate memory during runtime using the `new` and `delete` operators. This is particularly useful when the amount of memory needed cannot be determined at compile time.
+
+### Basic Syntax
+
+1. **Allocating Memory:**
+   - For a single variable:
+     ```cpp
+     int *ptr = new int;
+     ```
+   - For an array:
+     ```cpp
+     int *arr = new int[10];
+     ```
+
+2. **Deallocating Memory:**
+   - For a single variable:
+     ```cpp
+     delete ptr;
+     ```
+   - For an array:
+     ```cpp
+     delete[] arr;
+     ```
+
+### Example
+
+Here's a simple example demonstrating dynamic memory allocation for an integer and an array:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    // Allocate memory for a single integer
+    int *ptr = new int;
+    *ptr = 42;
+    cout << "Value: " << *ptr << endl;
+    delete ptr; // Deallocate memory
+
+    // Allocate memory for an array of integers
+    int *arr = new int[5];
+    for (int i = 0; i < 5; ++i) {
+        arr[i] = i * 10;
+    }
+    for (int i = 0; i < 5; ++i) {
+        cout << "arr[" << i << "] = " << arr[i] << endl;
+    }
+    delete[] arr; // Deallocate memory
+
+    return 0;
+}
+```
+
+### Key Points
+
+- **Heap Allocation:** Memory allocated using `new` is taken from the heap, which is a pool of memory used for dynamic allocation.
+- **Manual Deallocation:** It's the programmer's responsibility to deallocate memory using `delete` to avoid memory leaks.
+- **Exception Handling:** If memory allocation fails, `new` throws a `std::bad_alloc` exception. You can handle this using a try-catch block.
+
+Dynamic memory allocation is essential for creating data structures like linked lists, trees, and graphs, where the size can change during runtime.
+Recursion in C++
+Recursion in C++ is a technique where a function calls itself to solve a problem. This approach is useful for problems that can be broken down into smaller, similar sub-problems. Each recursive call should bring the problem closer to a base case, which is a condition that stops the recursion.
+
+### Basic Structure of a Recursive Function
+
+A recursive function typically has two main parts:
+1. **Base Case:** The condition under which the function stops calling itself.
+2. **Recursive Case:** The part of the function where it calls itself with a modified argument.
+
+### Example: Factorial Calculation
+
+Here's a simple example of a recursive function to calculate the factorial of a number:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int factorial(int n) {
+    if (n <= 1) { // Base case
+        return 1;
+    } else { // Recursive case
+        return n * factorial(n - 1);
+    }
+}
+
+int main() {
+    int number;
+    cout << "Enter a positive integer: ";
+    cin >> number;
+    cout << "Factorial of " << number << " is " << factorial(number) << endl;
+    return 0;
+}
+```
+
+### How It Works
+
+1. **Base Case:** When `n` is less than or equal to 1, the function returns 1.
+2. **Recursive Case:** The function calls itself with `n - 1` and multiplies the result by `n`.
+
+### Advantages and Disadvantages
+
+**Advantages:**
+- Simplifies code for problems that have a natural recursive structure (e.g., tree traversal, factorial calculation).
+- Makes the code more readable and easier to understand.
+
+**Disadvantages:**
+- Can lead to high memory usage due to the call stack.
+- May be less efficient than iterative solutions for some problems.
+
+### Example: Fibonacci Sequence
+
+Another common example is calculating the Fibonacci sequence:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int fibonacci(int n) {
+    if (n <= 1) { // Base case
+        return n;
+    } else { // Recursive case
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}
+
+int main() {
+    int number;
+    cout << "Enter a positive integer: ";
+    cin >> number;
+    cout << "Fibonacci number at position " << number << " is " << fibonacci(number) << endl;
+    return 0;
+}
+```
+
+In this example, the `fibonacci` function calls itself twice, reducing the problem size with each call until it reaches the base case.
+
+Recursion is a powerful tool in C++ programming, especially for problems that can be divided into smaller, similar problems¹². If you have any specific questions or need further examples, feel free to ask!
+Function Templates in C++:
+Function templates in C++ allow you to create functions that can operate with generic types. This means you can write a single function that works with different data types without having to overload the function for each type.
+
+### Defining a Function Template
+
+A function template starts with the `template` keyword followed by template parameters inside angle brackets (`<>`). Here's the basic syntax:
+
+```cpp
+template <typename T>
+T add(T a, T b) {
+    return a + b;
+}
+```
+
+In this example, `T` is a template parameter that represents a generic data type. The `add` function can now add two variables of any type that supports the `+` operator.
+
+### Using a Function Template
+
+You can call a function template just like a regular function. The compiler automatically generates the appropriate function based on the arguments you pass:
+
+```cpp
+int main() {
+    int result1 = add(3, 4); // Calls add<int>(int, int)
+    double result2 = add(2.5, 3.7); // Calls add<double>(double, double)
+
+    cout << "Result1: " << result1 << endl;
+    cout << "Result2: " << result2 << endl;
+
+    return 0;
+}
+```
+
+### Example: Swapping Two Variables
+
+Here's another example that demonstrates a function template for swapping two variables:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+template <typename T>
+void swapValues(T &a, T &b) {
+    T temp = a;
+    a = b;
+    b = temp;
+}
+
+int main() {
+    int x = 10, y = 20;
+    cout << "Before swap: x = " << x << ", y = " << y << endl;
+    swapValues(x, y);
+    cout << "After swap: x = " << x << ", y = " << y << endl;
+
+    double p = 1.1, q = 2.2;
+    cout << "Before swap: p = " << p << ", q = " << q << endl;
+    swapValues(p, q);
+    cout << "After swap: p = " << p << ", q = " << q << endl;
+
+    return 0;
+}
+```
+
+### Key Points
+
+- **Generic Programming:** Function templates enable generic programming, allowing you to write more flexible and reusable code.
+- **Type Safety:** The compiler ensures type safety by generating the appropriate function for the given data types.
+- **Code Reduction:** Function templates reduce code duplication by eliminating the need to write multiple overloads for different data types.
+
+Function templates are a powerful feature in C++ that can greatly enhance the flexibility and maintainability of your code.
+Auto keyword in Function templates:
+The `auto` keyword in C++ is significant for simplifying code and improving readability, especially when used in conjunction with function templates. Here are some key points about its significance:
+
+### Type Inference
+
+The `auto` keyword allows the compiler to automatically deduce the type of a variable or the return type of a function. This can make the code cleaner and reduce the risk of errors related to type mismatches.
+
+### Simplifying Function Templates
+
+When used in function templates, `auto` can simplify the syntax and make the code more readable. For example, instead of explicitly specifying the return type, you can use `auto` to let the compiler deduce it:
+
+```cpp
+template <typename T, typename U>
+auto add(T a, U b) -> decltype(a + b) {
+    return a + b;
+}
+```
+
+In this example, the return type is deduced using `decltype(a + b)`, which makes the function template more flexible and easier to read.
+
+### Flexibility with Different Types
+
+Using `auto` in function templates allows for more flexibility when dealing with different types. For instance, you can create a function that works with various types without explicitly specifying each type:
+
+```cpp
+template <typename T, typename U>
+auto multiply(T a, U b) {
+    return a * b;
+}
+```
+
+This function can handle different types of arguments, such as `int`, `double`, or even user-defined types, without needing to overload the function for each type.
+
+### Example: Using `auto` in a Function Template
+
+Here's a practical example demonstrating the use of `auto` in a function template:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+template <typename T, typename U>
+auto max(T a, U b) {
+    return (a > b) ? a : b;
+}
+
+int main() {
+    cout << "Max of 3 and 7.5: " << max(3, 7.5) << endl;
+    cout << "Max of 'a' and 'z': " << max('a', 'z') << endl;
+    return 0;
+}
+```
+
+In this example, the `max` function template uses `auto` to deduce the return type based on the types of the arguments passed to it.
+
+### Advantages
+
+- **Reduces Boilerplate Code:** Using `auto` reduces the need for repetitive type declarations.
+- **Improves Readability:** Makes the code easier to read and understand.
+- **Enhances Flexibility:** Allows functions to work with a wider range of types without explicit type specifications.
+
+### Conclusion
+
+The `auto` keyword, when used in function templates, enhances the flexibility, readability, and maintainability of C++ code. It allows for more concise and expressive code by leveraging the compiler's ability to deduce types.
+decltype():
+The `decltype` keyword in C++ is used to query the type of an expression. It was introduced in C++11 and is particularly useful in generic programming, where determining the type of an expression can be complex or dependent on template parameters.
+
+### Basic Usage
+
+The `decltype` keyword can be used in two main ways:
+
+1. **To determine the type of a variable or expression:**
+   ```cpp
+   int x = 5;
+   decltype(x) y = 10; // y is of type int
+   ```
+
+2. **To determine the return type of a function:**
+   ```cpp
+   template <typename T, typename U>
+   auto add(T a, U b) -> decltype(a + b) {
+       return a + b;
+   }
+   ```
+
+### Example
+
+Here's a simple example demonstrating the use of `decltype`:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a = 5;
+    double b = 3.14;
+    decltype(a + b) c = a + b; // c is of type double
+
+    cout << "Type of c: " << typeid(c).name() << endl; // Outputs the type of c
+    cout << "Value of c: " << c << endl;
+
+    return 0;
+}
+```
+
+### Key Points
+
+- **Type Deduction:** `decltype` deduces the type of an expression without evaluating it.
+- **Combining with `auto`:** While `auto` deduces the type of a variable from its initializer, `decltype` can be used to deduce the type of an expression or variable.
+- **Generic Programming:** `decltype` is particularly useful in templates to deduce return types or intermediate types.
+
+### Advantages
+
+- **Improves Code Readability:** By reducing the need for explicit type declarations.
+- **Enhances Flexibility:** Allows for more generic and reusable code.
+- **Ensures Type Safety:** Helps in maintaining type correctness in complex expressions.
+
+### Practical Use Case
+
+In generic programming, `decltype` can be used to deduce the return type of a function based on the types of its arguments:
+
+```cpp
+template <typename T, typename U>
+auto multiply(T a, U b) -> decltype(a * b) {
+    return a * b;
+}
+```
+
+This function template can handle different types of arguments and deduce the correct return type based on the multiplication of `a` and `b`.
+
+The `decltype` keyword is a powerful tool in C++ that enhances the language's type inference capabilities and makes code more flexible and maintainable.
+struct keyword in C++:
+In C++, a `struct` (short for structure) is a user-defined data type that allows you to group variables of different types under a single name. This is particularly useful for organizing related data. Here's a basic overview of how to use `struct` in C++:
+
+### Defining a Structure
+
+To define a structure, use the `struct` keyword followed by the structure name and the members enclosed in curly braces `{}`:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Person {
+    string name;
+    int age;
+    double height;
+};
+
+int main() {
+    // Creating an instance of the structure
+    Person person1;
+
+    // Assigning values to the members
+    person1.name = "John";
+    person1.age = 30;
+    person1.height = 5.9;
+
+    // Accessing and printing the members
+    cout << "Name: " << person1.name << endl;
+    cout << "Age: " << person1.age << endl;
+    cout << "Height: " << person1.height << endl;
+
+    return 0;
+}
+```
+
+### Key Points
+
+1. **Members:** The variables inside a structure are called members. They can be of different types.
+2. **Accessing Members:** Use the dot operator (`.`) to access members of a structure.
+3. **Initialization:** You can initialize structure members using curly braces `{}`.
+
+### Example: Multiple Structure Variables
+
+You can also create multiple variables of the same structure type:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Car {
+    string brand;
+    string model;
+    int year;
+};
+
+int main() {
+    Car car1, car2;
+
+    car1.brand = "Toyota";
+    car1.model = "Corolla";
+    car1.year = 2020;
+
+    car2.brand = "Ford";
+    car2.model = "Mustang";
+    car2.year = 1969;
+
+    cout << car1.brand << " " << car1.model << " " << car1.year << endl;
+    cout << car2.brand << " " << car2.model << " " << car2.year << endl;
+
+    return 0;
+}
+```
+
+### Advanced Features
+
+- **Nested Structures:** You can define a structure within another structure.
+- **Member Functions:** Structures can also contain functions, similar to classes.
+- **Access Specifiers:** By default, members of a structure are public. You can use access specifiers like `private` and `protected` just like in classes.
+
+### Example: Nested Structures
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Address {
+    string city;
+    string state;
+    int zip;
+};
+
+struct Employee {
+    string name;
+    int id;
+    Address address; // Nested structure
+};
+
+int main() {
+    Employee emp;
+
+    emp.name = "Alice";
+    emp.id = 101;
+    emp.address.city = "New York";
+    emp.address.state = "NY";
+    emp.address.zip = 10001;
+
+    cout << "Name: " << emp.name << endl;
+    cout << "ID: " << emp.id << endl;
+    cout << "City: " << emp.address.city << endl;
+    cout << "State: " << emp.address.state << endl;
+    cout << "ZIP: " << emp.address.zip << endl;
+
+    return 0;
+}
+```
+
+Structures in C++ are a powerful way to group related data and can be used in various applications.
+Pass by value and pass by reference:
+In C++, you can pass structures to functions either by value or by reference. Each method has its own use cases and implications.
+
+### Passing by Value
+
+When you pass a structure by value, a copy of the structure is made. This means that any changes made to the structure inside the function do not affect the original structure.
+
+**Example:**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Person {
+    string name;
+    int age;
+};
+
+void printPerson(Person p) {
+    p.age = 30; // This change will not affect the original structure
+    cout << "Name: " << p.name << ", Age: " << p.age << endl;
+}
+
+int main() {
+    Person person1 = {"John", 25};
+    printPerson(person1);
+    cout << "Original Age: " << person1.age << endl; // Outputs: 25
+    return 0;
+}
+```
+
+### Passing by Reference
+
+When you pass a structure by reference, you pass a reference to the original structure. This means that any changes made to the structure inside the function will affect the original structure. Passing by reference is more efficient for large structures because it avoids the overhead of copying.
+
+**Example:**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Person {
+    string name;
+    int age;
+};
+
+void updatePerson(Person &p) {
+    p.age = 30; // This change will affect the original structure
+    cout << "Updated Age: " << p.age << endl;
+}
+
+int main() {
+    Person person1 = {"John", 25};
+    updatePerson(person1);
+    cout << "Original Age: " << person1.age << endl; // Outputs: 30
+    return 0;
+}
+```
+
+### Key Points
+
+- **Pass by Value:**
+  - A copy of the structure is made.
+  - Changes inside the function do not affect the original structure.
+  - Useful when you do not want the function to modify the original structure.
+  - Can be less efficient for large structures due to the overhead of copying.
+
+- **Pass by Reference:**
+  - A reference to the original structure is passed.
+  - Changes inside the function affect the original structure.
+  - More efficient for large structures as it avoids copying.
+  - Useful when you want the function to modify the original structure.
+
+### When to Use Each Method
+
+- **Pass by Value:** Use this method when you want to ensure that the original structure remains unchanged by the function.
+- **Pass by Reference:** Use this method when you need the function to modify the original structure or when dealing with large structures to avoid the overhead of copying.
+Enums:
+In C++, an enumeration (or `enum`) is a user-defined data type that consists of a set of named integral constants. Enums are useful for representing a collection of related values in a more readable and maintainable way.
+
+### Defining an Enum
+
+To define an enum, use the `enum` keyword followed by the name of the enum and a list of enumerator values enclosed in curly braces `{}`:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+enum Color {
+    Red,
+    Green,
+    Blue
+};
+
+int main() {
+    Color myColor = Green;
+    cout << "My color is: " << myColor << endl; // Outputs: 1
+    return 0;
+}
+```
+
+### Key Points
+
+1. **Enumerator Values:** By default, the first enumerator has the value 0, the second 1, and so on. You can also explicitly set the values.
+2. **Type Safety:** Enums provide type safety, making the code more readable and less error-prone.
+3. **Scoped Enums:** Introduced in C++11, scoped enums (or `enum class`) provide better type safety and scoping.
+
+### Example with Explicit Values
+
+You can assign specific values to the enumerators:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+enum Day {
+    Sunday = 1,
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday
+};
+
+int main() {
+    Day today = Friday;
+    cout << "Today is day number: " << today << endl; // Outputs: 6
+    return 0;
+}
+```
+
+### Scoped Enums (C++11 and Later)
+
+Scoped enums provide better type safety and avoid name clashes:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+enum class Fruit {
+    Apple,
+    Banana,
+    Cherry
+};
+
+int main() {
+    Fruit myFruit = Fruit::Banana;
+    cout << "My fruit is: " << static_cast<int>(myFruit) << endl; // Outputs: 1
+    return 0;
+}
+```
+
+### Advantages of Enums
+
+- **Readability:** Enums make the code more readable by using meaningful names instead of numeric values.
+- **Maintainability:** Easier to maintain and update the code when the set of values changes.
+- **Type Safety:** Prevents invalid values from being assigned to variables.
+
+Enums are a powerful feature in C++ that help in organizing and managing related constants.
+Object Oriented Programming:
+Object-Oriented Programming (OOP) in C++ is a programming paradigm that uses objects and classes to structure software in a way that is modular, reusable, and easier to maintain. Here are the key concepts of OOP in C++:
+
+### 1. Classes and Objects
+
+- **Class:** A blueprint for creating objects. It defines a type by bundling data and methods that work on the data.
+- **Object:** An instance of a class. It represents a real-world entity with attributes and behaviors.
+
+**Example:**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+public:
+    string brand;
+    string model;
+    int year;
+
+    void display() {
+        cout << "Brand: " << brand << ", Model: " << model << ", Year: " << year << endl;
+    }
+};
+
+int main() {
+    Car car1;
+    car1.brand = "Toyota";
+    car1.model = "Corolla";
+    car1.year = 2020;
+    car1.display();
+
+    return 0;
+}
+```
+
+### 2. Encapsulation
+
+Encapsulation is the concept of wrapping data and methods that operate on the data within a single unit, i.e., a class. It helps in protecting the data from outside interference and misuse.
+
+**Example:**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Employee {
+private:
+    int id;
+    string name;
+
+public:
+    void setId(int i) {
+        id = i;
+    }
+
+    void setName(string n) {
+        name = n;
+    }
+
+    void display() {
+        cout << "ID: " << id << ", Name: " << name << endl;
+    }
+};
+
+int main() {
+    Employee emp;
+    emp.setId(101);
+    emp.setName("Alice");
+    emp.display();
+
+    return 0;
+}
+```
+
+### 3. Inheritance
+
+Inheritance allows a class to inherit properties and methods from another class. It promotes code reusability.
+
+**Example:**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    void eat() {
+        cout << "Eating..." << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void bark() {
+        cout << "Barking..." << endl;
+    }
+};
+
+int main() {
+    Dog dog;
+    dog.eat();
+    dog.bark();
+
+    return 0;
+}
+```
+
+### 4. Polymorphism
+
+Polymorphism allows methods to do different things based on the object it is acting upon. It can be achieved through method overloading and method overriding.
+
+**Example:**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Shape {
+public:
+    virtual void draw() {
+        cout << "Drawing Shape" << endl;
+    }
+};
+
+class Circle : public Shape {
+public:
+    void draw() override {
+        cout << "Drawing Circle" << endl;
+    }
+};
+
+int main() {
+    Shape *shape;
+    Circle circle;
+    shape = &circle;
+    shape->draw();
+
+    return 0;
+}
+```
+
+### 5. Abstraction
+
+Abstraction is the concept of hiding the complex implementation details and showing only the essential features of the object.
+
+**Example:**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class AbstractEmployee {
+    virtual void askForPromotion() = 0; // Pure virtual function
+};
+
+class Employee : public AbstractEmployee {
+private:
+    string name;
+    int age;
+
+public:
+    Employee(string n, int a) : name(n), age(a) {}
+
+    void askForPromotion() override {
+        if (age > 30)
+            cout << name << " got promoted!" << endl;
+        else
+            cout << name << ", sorry no promotion for you." << endl;
+    }
+};
+
+int main() {
+    Employee emp1("John", 35);
+    emp1.askForPromotion();
+
+    return 0;
+}
+```
+
+### Conclusion
+
+OOP in C++ provides a clear structure for programs, making them easier to manage and maintain. By using classes and objects, encapsulation, inheritance, polymorphism, and abstraction, you can create more modular, reusable, and efficient code.
+Constructors:
+A constructor in C++ is a special member function that is automatically called when an object of a class is created. Constructors are primarily used to initialize objects. Here are the key points and examples to help you understand constructors better:
+
+### Key Characteristics of Constructors
+
+1. **Same Name as Class:** The constructor has the same name as the class.
+2. **No Return Type:** Constructors do not have a return type, not even `void`.
+3. **Automatically Called:** They are called automatically when an object is instantiated.
+4. **Can Be Overloaded:** You can have multiple constructors with different parameters.
+
+### Types of Constructors
+
+1. **Default Constructor:** A constructor that takes no arguments.
+2. **Parameterized Constructor:** A constructor that takes arguments to initialize an object with specific values.
+3. **Copy Constructor:** A constructor that initializes an object using another object of the same class.
+4. **Move Constructor:** A constructor that transfers resources from a temporary object to a new object (introduced in C++11).
+
+### Examples
+
+#### Default Constructor
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class MyClass {
+public:
+    MyClass() {
+        cout << "Default Constructor Called!" << endl;
+    }
+};
+
+int main() {
+    MyClass obj; // Default constructor is called
+    return 0;
+}
+```
+
+#### Parameterized Constructor
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+public:
+    string brand;
+    string model;
+    int year;
+
+    Car(string b, string m, int y) {
+        brand = b;
+        model = m;
+        year = y;
+    }
+
+    void display() {
+        cout << brand << " " << model << " " << year << endl;
+    }
+};
+
+int main() {
+    Car car1("Toyota", "Corolla", 2020);
+    car1.display(); // Outputs: Toyota Corolla 2020
+    return 0;
+}
+```
+
+#### Copy Constructor
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class MyClass {
+public:
+    int value;
+
+    MyClass(int v) : value(v) {}
+
+    // Copy constructor
+    MyClass(const MyClass &obj) {
+        value = obj.value;
+    }
+
+    void display() {
+        cout << "Value: " << value << endl;
+    }
+};
+
+int main() {
+    MyClass obj1(10);
+    MyClass obj2 = obj1; // Copy constructor is called
+    obj2.display(); // Outputs: Value: 10
+    return 0;
+}
+```
+
+### Move Constructor (C++11)
+
+```cpp
+#include <iostream>
+#include <utility>
+using namespace std;
+
+class MyClass {
+public:
+    int* data;
+
+    MyClass(int d) {
+        data = new int(d);
+    }
+
+    // Move constructor
+    MyClass(MyClass &&obj) noexcept {
+        data = obj.data;
+        obj.data = nullptr;
+    }
+
+    ~MyClass() {
+        delete data;
+    }
+
+    void display() {
+        if (data)
+            cout << "Data: " << *data << endl;
+        else
+            cout << "Data is null" << endl;
+    }
+};
+
+int main() {
+    MyClass obj1(10);
+    MyClass obj2 = move(obj1); // Move constructor is called
+    obj2.display(); // Outputs: Data: 10
+    obj1.display(); // Outputs: Data is null
+    return 0;
+}
+```
+
+Constructors are essential for initializing objects and ensuring that they start in a valid state.
+Constructor Overloading:
+Constructor overloading in C++ allows a class to have multiple constructors with different parameter lists. This enables the creation of objects in various ways, depending on the arguments passed. Here's a detailed explanation with examples:
+
+### Basic Concept
+
+Constructor overloading is similar to function overloading. You define multiple constructors in a class, each with a different set of parameters. The appropriate constructor is called based on the arguments provided when an object is created.
+
+### Example
+
+Let's consider a class `Person` with overloaded constructors:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Person {
+private:
+    string name;
+    int age;
+
+public:
+    // Default constructor
+    Person() {
+        name = "Unknown";
+        age = 0;
+    }
+
+    // Parameterized constructor
+    Person(string n, int a) {
+        name = n;
+        age = a;
+    }
+
+    // Another parameterized constructor
+    Person(string n) {
+        name = n;
+        age = 0;
+    }
+
+    void display() {
+        cout << "Name: " << name << ", Age: " << age << endl;
+    }
+};
+
+int main() {
+    Person person1; // Calls default constructor
+    Person person2("Alice", 30); // Calls parameterized constructor
+    Person person3("Bob"); // Calls another parameterized constructor
+
+    person1.display(); // Outputs: Name: Unknown, Age: 0
+    person2.display(); // Outputs: Name: Alice, Age: 30
+    person3.display(); // Outputs: Name: Bob, Age: 0
+
+    return 0;
+}
+```
+
+### Explanation
+
+1. **Default Constructor:**
+   ```cpp
+   Person() {
+       name = "Unknown";
+       age = 0;
+   }
+   ```
+   This constructor initializes the `name` to "Unknown" and `age` to 0.
+
+2. **Parameterized Constructor:**
+   ```cpp
+   Person(string n, int a) {
+       name = n;
+       age = a;
+   }
+   ```
+   This constructor initializes the `name` and `age` with the provided arguments.
+
+3. **Another Parameterized Constructor:**
+   ```cpp
+   Person(string n) {
+       name = n;
+       age = 0;
+   }
+   ```
+   This constructor initializes the `name` with the provided argument and sets `age` to 0.
+
+### Benefits
+
+- **Flexibility:** Allows creating objects with different initial states.
+- **Code Reusability:** Reduces the need for multiple initialization functions.
+- **Readability:** Makes the code more readable and easier to understand.
+
+Constructor overloading is a powerful feature in C++ that enhances the flexibility and usability of classes.
+Inheritance in C++:
+Inheritance is a fundamental concept in C++ and object-oriented programming (OOP). It allows a class (derived class) to inherit attributes and methods from another class (base class). This promotes code reusability and establishes a natural hierarchy between classes.
+
+### Types of Inheritance
+
+1. **Single Inheritance:** A derived class inherits from a single base class.
+2. **Multiple Inheritance:** A derived class inherits from more than one base class.
+3. **Multilevel Inheritance:** A class is derived from another derived class.
+4. **Hierarchical Inheritance:** Multiple classes are derived from a single base class.
+5. **Hybrid Inheritance:** A combination of two or more types of inheritance.
+
+### Basic Syntax
+
+To inherit from a class, use the `:` symbol followed by the access specifier and the base class name:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Base class
+class Vehicle {
+public:
+    string brand = "Ford";
+    void honk() {
+        cout << "Tuut, tuut!" << endl;
+    }
+};
+
+// Derived class
+class Car : public Vehicle {
+public:
+    string model = "Mustang";
+};
+
+int main() {
+    Car myCar;
+    myCar.honk(); // Inherited method
+    cout << myCar.brand + " " + myCar.model << endl; // Inherited attribute
+    return 0;
+}
+```
+
+### Access Specifiers
+
+The access specifier determines the accessibility of the base class members in the derived class:
+
+- **Public Inheritance:** Public and protected members of the base class become public and protected members of the derived class.
+- **Protected Inheritance:** Public and protected members of the base class become protected members of the derived class.
+- **Private Inheritance:** Public and protected members of the base class become private members of the derived class.
+
+### Example: Single Inheritance
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Parent {
+public:
+    int id_p;
+    void display() {
+        cout << "Parent ID: " << id_p << endl;
+    }
+};
+
+class Child : public Parent {
+public:
+    int id_c;
+    void display() {
+        cout << "Child ID: " << id_c << endl;
+    }
+};
+
+int main() {
+    Child obj;
+    obj.id_p = 91;
+    obj.id_c = 101;
+    obj.Parent::display(); // Accessing base class method
+    obj.display(); // Accessing derived class method
+    return 0;
+}
+```
+
+### Example: Multiple Inheritance
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Base1 {
+public:
+    void display() {
+        cout << "Base1 display" << endl;
+    }
+};
+
+class Base2 {
+public:
+    void display() {
+        cout << "Base2 display" << endl;
+    }
+};
+
+class Derived : public Base1, public Base2 {
+public:
+    void show() {
+        Base1::display(); // Accessing Base1 display
+        Base2::display(); // Accessing Base2 display
+    }
+};
+
+int main() {
+    Derived obj;
+    obj.show();
+    return 0;
+}
+```
+
+### Benefits of Inheritance
+
+- **Code Reusability:** Inherited methods and attributes can be reused in derived classes.
+- **Logical Hierarchy:** Establishes a clear and logical hierarchy between classes.
+- **Maintainability:** Easier to maintain and update code by modifying the base class.
+
+Inheritance is a powerful feature in C++ that enhances the modularity and reusability of code.
